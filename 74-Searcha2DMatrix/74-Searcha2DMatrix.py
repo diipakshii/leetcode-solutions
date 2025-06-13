@@ -1,4 +1,4 @@
-# Last updated: 6/13/2025, 12:04:30 PM
+# Last updated: 6/13/2025, 12:09:49 PM
 class Solution(object):
     def searchMatrix(self, matrix, target):
         """
@@ -7,21 +7,26 @@ class Solution(object):
         :rtype: bool
         """
 
-        num_rows = len(matrix)
-        num_columns = len(matrix[0])
+        rows = len(matrix)
+        columns = len(matrix[0])
 
-        row = 0
-        column = num_columns - 1
+        left = 0
+        right = rows * columns - 1
 
-        while row < len(matrix) and column >= 0:
-            if matrix[row][column] > target:
-                column -= 1
-            elif matrix[row][column] < target:
-                row += 1
+        while left <= right:
+            mid = left + (right - left) // 2
+            
+            row = mid // columns
+            column = mid % columns
+
+            if target > matrix[row][column]:
+                left = mid + 1
+            elif target < matrix[row][column]:
+                right = mid - 1
             else:
                 return True
         
         return False
 
-        # O(m + n)
+        # O(log(m * n))
         
