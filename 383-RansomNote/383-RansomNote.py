@@ -1,4 +1,4 @@
-# Last updated: 6/18/2025, 10:36:11 PM
+# Last updated: 6/18/2025, 10:37:56 PM
 class Solution(object):
     def canConstruct(self, ransomNote, magazine):
         """
