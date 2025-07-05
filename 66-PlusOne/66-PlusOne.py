@@ -1,34 +1,24 @@
-# Last updated: 7/5/2025, 3:00:36 AM
+# Last updated: 7/5/2025, 3:05:11 AM
 class Solution(object):
     def longestPalindrome(self, s):
         """
         :type s: str
         :rtype: int
         """
-        if len(s) == 1:
-            return 1
+        hashmap = set()
+        length = 0
 
-        # count number of character in s
-        hashmap = {}
         for char in s:
-            if char not in hashmap:
-                hashmap[char] = 1
+            if char in hashmap:
+                hashmap.remove(char)
+                length += 2
             else:
-                hashmap[char] += 1
+                hashmap.add(char)
 
-        max_length = 0
-        odd = 0
-        
-        # add even counts of letters
-        for key in hashmap.keys():
-            count = hashmap[key]
-            if count % 2 == 0:
-                max_length += count
-            else: 
-                max_length += count - 1 
-                odd = 1
-        
-        return max_length + odd
+        if len(hashmap) > 0:
+            length += 1
+
+        return length
 
          
         
