@@ -1,24 +1,30 @@
-# Last updated: 7/5/2025, 3:23:48 AM
+# Last updated: 7/5/2025, 1:46:03 PM
 class Solution(object):
-    def maxArea(self, height):
+    def lemonadeChange(self, bills):
         """
-        :type height: List[int]
-        :rtype: int
+        :type bills: List[int]
+        :rtype: bool
         """
-        left = 0
-        right = len(height) - 1
+        # hashmap 
+        # count number of 5s, 10s, and 20s
 
-        maxArea = 0
+        counts = {5: 0, 10: 0}
 
-        while left < right:
-            area = (right - left) * min(height[left], height[right])
+        for bill in bills:
+            if bill == 5:
+                counts[5] += 1
+            elif bill == 10:
+                if counts[5] == 0:
+                    return False
+                counts[5] -= 1
+                counts[10] += 1
+            elif bill == 20:
+                if counts[10] > 0 and counts[5] > 0:
+                    counts[10] -= 1
+                    counts[5] -= 1
+                elif counts[5] >= 3:
+                    counts[5] -= 3
+                else:
+                    return False
 
-            if area > maxArea:
-                maxArea = area
-            
-            if height[left] <= height[right]:
-                left += 1
-            else:
-                right -= 1
-        
-        return maxArea
+        return True
