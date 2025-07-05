@@ -1,26 +1,24 @@
-# Last updated: 7/5/2025, 3:05:11 AM
+# Last updated: 7/5/2025, 3:23:48 AM
 class Solution(object):
-    def longestPalindrome(self, s):
+    def maxArea(self, height):
         """
-        :type s: str
+        :type height: List[int]
         :rtype: int
         """
-        hashmap = set()
-        length = 0
+        left = 0
+        right = len(height) - 1
 
-        for char in s:
-            if char in hashmap:
-                hashmap.remove(char)
-                length += 2
+        maxArea = 0
+
+        while left < right:
+            area = (right - left) * min(height[left], height[right])
+
+            if area > maxArea:
+                maxArea = area
+            
+            if height[left] <= height[right]:
+                left += 1
             else:
-                hashmap.add(char)
-
-        if len(hashmap) > 0:
-            length += 1
-
-        return length
-
-         
+                right -= 1
         
-
-        
+        return maxArea
