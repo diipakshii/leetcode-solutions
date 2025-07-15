@@ -1,34 +1,30 @@
-# Last updated: 7/13/2025, 1:27:18 PM
+# Last updated: 7/14/2025, 7:58:24 PM
 class Solution(object):
-    def wordPattern(self, pattern, s):
+    def isIsomorphic(self, s, t):
         """
-        :type pattern: str
         :type s: str
+        :type t: str
         :rtype: bool
         """
-        words = s.split()
 
-        # Check if lengths of pattern and words match
-        if len(pattern) != len(words):
+        if len(s) != len(t):
             return False
 
-        char_to_word = {}
-        word_to_char = {}
+        s_to_t = {}
+        t_to_s = {}
 
-        for i in range(len(pattern)):
-            char = pattern[i]
-            word = words[i]
-
-            if char in char_to_word:
-                if char_to_word[char] != word:
+        for i in range(len(s)):
+            s_char = s[i]
+            t_char = t[i]
+            if s_char in s_to_t:
+                if s_to_t[s_char] != t_char:
                     return False
             else:
-                if word in word_to_char:
+                if t_char in t_to_s:
                     return False
-                char_to_word[char] = word
-                word_to_char[word] = char
-
+                s_to_t[s_char] = t_char
+                t_to_s[t_char] = s_char
+        
         return True
-            
-
+        
         
