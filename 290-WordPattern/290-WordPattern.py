@@ -1,24 +1,26 @@
-# Last updated: 7/14/2025, 8:22:56 PM
+# Last updated: 7/14/2025, 8:46:29 PM
 class Solution(object):
-    def containsNearbyDuplicate(self, nums, k):
+    def longestConsecutive(self, nums):
         """
         :type nums: List[int]
-        :type k: int
-        :rtype: bool
+        :rtype: int
         """
-        seen = set()
+        if len(nums) == 0:
+            return 0
 
-        for i in range(len(nums)):
-            if nums[i] in seen:
-                return True
-            
-            seen.add(nums[i])
-            if len(seen) > k:
-                seen.remove(nums[i - k])
+        nums.sort()
 
-        return False
-            
+        max_len = 1
+        curr = 1
 
-
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i - 1]:
+                if nums[i] == nums[i - 1] + 1:
+                    curr += 1
+                else: 
+                    max_len = max(max_len, curr)
+                    curr = 1
+        
+        return max(max_len, curr)
             
         
