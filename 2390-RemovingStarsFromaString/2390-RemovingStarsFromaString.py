@@ -1,21 +1,29 @@
-# Last updated: 7/17/2025, 1:20:05 AM
+# Last updated: 7/18/2025, 12:44:10 AM
 class Solution(object):
-    def removeStars(self, s):
+    def decodeString(self, s):
         """
         :type s: str
         :rtype: str
         """
         stack = []
+        curNum = 0
+        curString = ""
 
         for char in s:
-            if char == "*":
-                if stack:
-                    stack.pop()
+            if char == "[":
+                stack.append(curString)
+                stack.append(curNum)
+                # reset
+                curString = ""
+                curNum = 0
+            elif char == "]":
+                num = stack.pop()
+                prevString = stack.pop()
+                curString = prevString + num*curString
+            elif char.isdigit():
+                curNum = curNum * 10 + int(char)
             else:
-                stack.append(char)
-
-        ans = "".join(stack)
-
-        return ans
-            
+                curString += char
         
+        return curString
+     
