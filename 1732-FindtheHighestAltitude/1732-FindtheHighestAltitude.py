@@ -1,25 +1,24 @@
-# Last updated: 7/18/2025, 11:39:01 PM
+# Last updated: 7/18/2025, 11:47:53 PM
 class Solution(object):
-    def findDifference(self, nums1, nums2):
+    def uniqueOccurrences(self, arr):
         """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: List[List[int]]
+        :type arr: List[int]
+        :rtype: bool
         """
+        dictionary = {}
 
-        hash1 = set(nums1)
-        hash2 = set(nums2)
+        for val in arr:
+            if val in dictionary:
+                dictionary[val] += 1
+            else:
+                dictionary[val] = 1
+        
+        values = set()
 
-        l = set()
-        m = set()
-
-        for i in nums1:
-            if i not in hash2:
-                l.add(i)
+        for key, value in dictionary.items():
+            if value in values:
+                return False
+            else:
+                values.add(value)
         
-        for i in nums2:
-            if i not in hash1:
-                m.add(i)
-        
-        return [list(l), list(m)]
-        
+        return True
