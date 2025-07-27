@@ -1,4 +1,4 @@
-# Last updated: 7/27/2025, 12:12:35 AM
+# Last updated: 7/27/2025, 12:39:00 AM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,26 +6,33 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def goodNodes(self, root):
+    def rightSideView(self, root):
         """
-        :type root: TreeNode
-        :rtype: int
+        :type root: Optional[TreeNode]
+        :rtype: List[int]
         """
-        # DFS
-        def dfs(node, maximum):
-            if not node:
-                return 0
+        if not root: 
+            return []
+
+        queue = deque([root])
+        right = []
+
+        while queue:
+            n = len(queue)
             
-            if node.val >= maximum:
-                good = 1 
-            else:
-                good = 0
+            for i in range(n):
+                node = queue.popleft()
 
-            maximum = max(maximum, node.val)
+                if i == n - 1:
+                    right.append(node.val)
 
-            good += dfs(node.left, maximum)
-            good += dfs(node.right, maximum)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+        
+        return right
 
-            return good
+            
 
-        return dfs(root, root.val)
+        
