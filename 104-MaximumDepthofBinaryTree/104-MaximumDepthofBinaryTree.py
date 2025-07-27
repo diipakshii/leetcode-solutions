@@ -1,4 +1,4 @@
-# Last updated: 7/1/2025, 11:12:26 PM
+# Last updated: 7/26/2025, 11:20:17 PM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -11,26 +11,8 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: int
         """
-        # breath first search -> O(n)
+        # recursive DFS solution
         if not root:
             return 0
-        
-        level = 0
-        
-        # initialize queue with root
-        queue = deque([root])
-
-        # keep going until queue is empty
-        while queue:
-            # remove what is current nodes in queue and add children
-            for i in range(len(queue)):
-                node = queue.popleft()
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            level += 1
-
-        return level
-
-        
+        else:
+            return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
