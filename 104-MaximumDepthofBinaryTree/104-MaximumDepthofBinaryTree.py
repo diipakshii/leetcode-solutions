@@ -1,4 +1,4 @@
-# Last updated: 7/27/2025, 12:39:00 AM
+# Last updated: 7/27/2025, 1:08:16 AM
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,33 +6,46 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def rightSideView(self, root):
+    def maxLevelSum(self, root):
         """
         :type root: Optional[TreeNode]
-        :rtype: List[int]
+        :rtype: int
         """
-        if not root: 
-            return []
+        if not root:
+            return 0
+        else:
+            queue = deque([root])
+            level = 1
+            maximum = root.val
+            maxLevel = level
 
-        queue = deque([root])
-        right = []
+            while queue:
+                levelSum = 0
 
-        while queue:
-            n = len(queue)
-            
-            for i in range(n):
-                node = queue.popleft()
+                n = len(queue)
 
-                if i == n - 1:
-                    right.append(node.val)
+                for i in range(n):
+                    node = queue.popleft()
+                    levelSum += node.val
 
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-        
-        return right
+                    if node.left:
+                        queue.append(node.left)
+                    
+                    if node.right:
+                        queue.append(node.right)
 
-            
+                if levelSum > maximum:
+                    maximum = levelSum
+                    maxLevel = level
+
+                level += 1
+
+            return maxLevel
+
+
+
+
+
+
 
         
