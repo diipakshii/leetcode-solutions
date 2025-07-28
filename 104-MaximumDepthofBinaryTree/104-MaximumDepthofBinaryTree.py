@@ -1,51 +1,29 @@
-# Last updated: 7/27/2025, 1:08:16 AM
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# Last updated: 7/28/2025, 12:27:48 AM
+# The guess API is already defined for you.
+# @param num, your guess
+# @return -1 if num is higher than the picked number
+#          1 if num is lower than the picked number
+#          otherwise return 0
+# def guess(num):
+
 class Solution(object):
-    def maxLevelSum(self, root):
+    def guessNumber(self, n):
         """
-        :type root: Optional[TreeNode]
+        :type n: int
         :rtype: int
         """
-        if not root:
-            return 0
-        else:
-            queue = deque([root])
-            level = 1
-            maximum = root.val
-            maxLevel = level
+        minimum = 1
+        maximum = n 
 
-            while queue:
-                levelSum = 0
+        while minimum <= maximum:
+            mid = minimum + (maximum - minimum) // 2
+            num = guess(mid)
 
-                n = len(queue)
-
-                for i in range(n):
-                    node = queue.popleft()
-                    levelSum += node.val
-
-                    if node.left:
-                        queue.append(node.left)
-                    
-                    if node.right:
-                        queue.append(node.right)
-
-                if levelSum > maximum:
-                    maximum = levelSum
-                    maxLevel = level
-
-                level += 1
-
-            return maxLevel
-
-
-
-
-
-
-
+            if num == 0:
+                return mid
+            elif num == -1:
+                maximum = mid - 1
+            else:
+                minimum = mid + 1
+            
         
