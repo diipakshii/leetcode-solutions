@@ -1,31 +1,33 @@
-# Last updated: 8/1/2025, 8:54:31 PM
+# Last updated: 8/1/2025, 9:35:41 PM
 class Solution(object):
-    def maxOperations(self, nums, k):
+    def longestOnes(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: int
         """
-        count = 0
-
-        nums.sort()
 
         left = 0
-        right = len(nums) - 1
+        right = 0
 
-        while left < right:
-            curr = nums[left] + nums[right] 
+        curr = 0
+        max_count = 0
 
-            if curr == k:
-                left += 1
-                right -= 1
-                count += 1
-            elif curr > k:
-                right -= 1
-            else:
-                left += 1
-        
-        return count
+        while right < len(nums):
+            if nums[right] == 1:
+                curr += 1
+                right += 1
+            else: 
+                if k > 0:
+                    k -= 1
+                    curr += 1
+                    right += 1
+                else:
+                    if nums[left] == 0:
+                        k += 1
+                    curr -= 1
+                    left += 1
+            
+            max_count = max(curr, max_count)
 
-
-        
+        return max_count
