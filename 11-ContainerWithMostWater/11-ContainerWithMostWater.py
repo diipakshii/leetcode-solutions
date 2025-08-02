@@ -1,29 +1,31 @@
-# Last updated: 6/13/2025, 11:40:34 AM
+# Last updated: 8/1/2025, 8:54:31 PM
 class Solution(object):
-    def maxArea(self, height):
+    def maxOperations(self, nums, k):
         """
-        :type height: List[int]
+        :type nums: List[int]
+        :type k: int
         :rtype: int
         """
-        # two pointer
+        count = 0
 
-        maxAmt = 0
+        nums.sort()
 
         left = 0
-        right = len(height) - 1
+        right = len(nums) - 1
 
         while left < right:
-            h = min(height[left], height[right])
-            w = right - left
+            curr = nums[left] + nums[right] 
 
-            amt = h * w
-
-            if amt > maxAmt:
-                maxAmt = amt
-            
-            if min(height[left], height[right]) == height[left]:
+            if curr == k:
                 left += 1
-            else:
                 right -= 1
-            
-        return maxAmt
+                count += 1
+            elif curr > k:
+                right -= 1
+            else:
+                left += 1
+        
+        return count
+
+
+        
