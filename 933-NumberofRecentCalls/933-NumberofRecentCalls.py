@@ -1,28 +1,29 @@
-# Last updated: 8/2/2025, 12:26:16 AM
-class RecentCounter(object):
-
-    def __init__(self):
-        self.queue = deque()
-        
-
-    def ping(self, t):
+# Last updated: 8/2/2025, 12:45:17 AM
+class Solution(object):
+    def predictPartyVictory(self, senate):
         """
-        :type t: int
-        :rtype: int
+        :type senate: str
+        :rtype: str
         """
-        self.queue.append(t)
+        n = len(senate)
 
-        while self.queue[0] < t - 3000:
-            self.queue.popleft()
+        radiant = deque()
+        dire = deque()
+
+        for i, s in enumerate(senate):
+            if s == "R":
+                radiant.append(i)
+            else:
+                dire.append(i)
         
-        return len(self.queue)
+        while radiant and dire:
+            r_index = radiant.popleft()
+            d_index = dire.popleft()
 
+            # Whoever comes earlier bans the other
+            if r_index < d_index:
+                radiant.append(r_index + n)
+            else:
+                dire.append(d_index + n)
 
-
-        
-        
-
-
-# Your RecentCounter object will be instantiated and called as such:
-# obj = RecentCounter()
-# param_1 = obj.ping(t)
+        return "Radiant" if radiant else "Dire"
