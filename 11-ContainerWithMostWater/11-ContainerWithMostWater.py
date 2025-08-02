@@ -1,9 +1,8 @@
-# Last updated: 8/1/2025, 9:35:56 PM
+# Last updated: 8/1/2025, 9:48:02 PM
 class Solution(object):
-    def longestOnes(self, nums, k):
+    def longestSubarray(self, nums):
         """
         :type nums: List[int]
-        :type k: int
         :rtype: int
         """
 
@@ -11,23 +10,21 @@ class Solution(object):
         right = 0
 
         max_count = 0
+        zero = 0
 
         while right < len(nums):
             if nums[right] == 0:
-                k -= 1
+                zero += 1
             
-            while k < 0:
+            if zero > 1:
                 if nums[left] == 0:
-                    k += 1
-                
+                    zero -= 1
                 left += 1
-            
-            curr = right - left + 1
-            max_count = max(max_count, curr)
-            
+
+            max_count = max(max_count, right - left)
+
             right += 1
-        
+
         return max_count
 
-                
         
