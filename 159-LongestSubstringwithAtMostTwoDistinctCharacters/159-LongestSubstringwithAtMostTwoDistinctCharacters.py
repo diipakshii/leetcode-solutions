@@ -1,29 +1,19 @@
-# Last updated: 8/3/2025, 12:36:16 AM
+# Last updated: 8/3/2025, 12:56:26 AM
 class Solution(object):
-    def lengthOfLongestSubstringKDistinct(self, s, k):
+    def anagramMappings(self, nums1, nums2):
         """
-        :type s: str
-        :type k: int
-        :rtype: int
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
         """
-        if k == 0 or not s:
-            return 0
-            
-        left = 0
-        curr = {}
-        max_len = 0
-
-        for right in range(len(s)):
-            if s[right] in curr:
-                curr[s[right]] += 1
-            else:
-                while len(curr) >= k:
-                    curr[s[left]] -= 1
-                    if curr[s[left]] == 0:
-                        del curr[s[left]]
-                    left += 1
-                curr[s[right]] = 1
-
-            max_len = max(max_len, right - left + 1)
+        dictionary = {}
         
-        return max_len
+        for i, val in enumerate(nums2):
+            dictionary[val] = i
+
+        result = []
+
+        for num in nums1:
+            result.append(dictionary[num])
+
+        return result   
