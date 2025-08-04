@@ -1,19 +1,32 @@
-# Last updated: 8/3/2025, 12:56:26 AM
+# Last updated: 8/3/2025, 5:06:21 PM
 class Solution(object):
-    def anagramMappings(self, nums1, nums2):
+    def areSentencesSimilar(self, sentence1, sentence2, similarPairs):
         """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: List[int]
+        :type sentence1: List[str]
+        :type sentence2: List[str]
+        :type similarPairs: List[List[str]]
+        :rtype: bool
         """
-        dictionary = {}
+        if len(sentence1) != len(sentence2):
+            return False
         
-        for i, val in enumerate(nums2):
-            dictionary[val] = i
+        # add similar pairs in a hashmap
+        pairs = {}
 
-        result = []
+        for sublist in similarPairs:
+            word1, word2 = sublist
+            if word1 in pairs:
+                pairs[word1].append(word2)
+            else:
+                pairs[word1] = [word2]
+        
+        # match up similar pairs
+        for i, (word1, word2) in enumerate(zip(sentence1, sentence2)):
+            if word1 == word2:
+                continue
+            if (word1 in pairs and word2 in pairs[word1]) or (word2 in pairs and word1 in pairs[word2]):
+                continue
+            return False
 
-        for num in nums1:
-            result.append(dictionary[num])
-
-        return result   
+        return True 
+        
