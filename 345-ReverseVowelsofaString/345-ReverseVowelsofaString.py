@@ -1,33 +1,22 @@
-# Last updated: 9/7/2025, 2:28:10 AM
+# Last updated: 9/7/2025, 3:15:24 AM
 class Solution(object):
-    def reverseVowels(self, s):
+    def kidsWithCandies(self, candies, extraCandies):
         """
-        :type s: str
-        :rtype: str
+        :type candies: List[int]
+        :type extraCandies: int
+        :rtype: List[bool]
         """
-        # two pointer 
+        orig_max = max(candies)
 
-        vowels = {"a", "e", "i", "o", "u", "A", "E", "I", "O", "U"}
+        output = list()
 
-        left = 0
-        right = len(s) - 1
-
-        # turn string to list
-        s = list(s)
-
-        while left < right: 
-            if s[left] not in vowels:
-                left += 1
-            elif s[right] not in vowels:
-                right -= 1
+        for i in range(len(candies)):
+            if candies[i] + extraCandies >= orig_max:
+                output.append(True)
             else:
-                # swap
-                s[left], s[right] = s[right], s[left]
-                left += 1
-                right -=1
+                output.append(False)
         
-        return "".join(s)
-            
-
+        return output
+        
 
         
