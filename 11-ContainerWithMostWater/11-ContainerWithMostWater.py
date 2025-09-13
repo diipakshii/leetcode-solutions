@@ -1,30 +1,32 @@
-# Last updated: 8/1/2025, 9:48:02 PM
+# Last updated: 9/12/2025, 8:21:59 PM
 class Solution(object):
-    def longestSubarray(self, nums):
+    def maxArea(self, height):
         """
-        :type nums: List[int]
+        :type height: List[int]
         :rtype: int
         """
-
         left = 0
-        right = 0
+        right = len(height) - 1
 
-        max_count = 0
-        zero = 0
+        maximum = 0
 
-        while right < len(nums):
-            if nums[right] == 0:
-                zero += 1
+        while left < right:
+            h = min(height[left], height[right])
+            w = right - left
+            water = h * w
             
-            if zero > 1:
-                if nums[left] == 0:
-                    zero -= 1
+            maximum = max(maximum, water)
+
+            if height[left] <= height[right]:
                 left += 1
+            else:
+                right -= 1
+        
+        return maximum
 
-            max_count = max(max_count, right - left)
 
-            right += 1
 
-        return max_count
+
+
 
         
