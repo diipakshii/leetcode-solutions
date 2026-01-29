@@ -1,35 +1,40 @@
-# Last updated: 6/13/2025, 11:40:21 AM
-class Solution(object):
-    def isAnagram(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-
-        if len(s) != len(t):
-            return False
-        # O(1)
-
-        dict = {}
-
-        for char in s:
-            if char in dict:
-                dict[char] += 1
-            else:
-                dict[char] = 1
-        # O(n) where n = len(s) = len(t)
-        
-        for char in t:
-            if char in dict:
-                dict[char] -= 1
-                if dict[char] == 0:
-                    del dict[char]
-            else:
-                return False
-        # O(n) where n = len(t) = len(s)
-        
-        return True
-
-        # O(1) + O(n) + O(n) = O(n) time
-        
+# Last updated: 1/29/2026, 3:06:05 PM
+1class Solution(object):
+2    def isAnagram(self, s, t):
+3        """
+4        :type s: str
+5        :type t: str
+6        :rtype: bool
+7        """
+8
+9        # O(1)
+10        if len(s) != len(t):
+11            return False
+12
+13        letters = {}
+14
+15        # O(n)
+16        for i in range(len(s)):
+17            curr = s[i]
+18            if curr in letters:
+19                letters[curr] += 1
+20            else:
+21                letters[curr] = 1
+22        
+23        # O(n)
+24        for j in range(len(t)):
+25            curr = t[j]
+26            if curr in letters:
+27                letters[curr] -= 1
+28                if letters[curr] == 0:
+29                    letters.pop(curr)
+30            else:
+31                return False
+32        
+33        # O(1)
+34        if len(letters) > 0:
+35            return False
+36        
+37        # total: O(n)
+38        return True
+39        
