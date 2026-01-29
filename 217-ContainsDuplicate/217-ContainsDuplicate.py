@@ -1,18 +1,20 @@
-# Last updated: 6/13/2025, 11:40:22 AM
-class Solution(object):
-    def containsDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        hash = set()
-
-        for num in nums:
-            if num not in hash:
-                hash.add(num)
-            else:
-                return True
-        
-        return False
-
-        # O(n) time
+# Last updated: 1/29/2026, 12:07:29 AM
+1class Solution(object):
+2    def containsDuplicate(self, nums):
+3        """
+4        :type nums: List[int]
+5        :rtype: bool
+6        """
+7
+8        duplicate_finder = set()
+9
+10        # O(n)
+11        for num in nums:
+12            if num in duplicate_finder:
+13                return True
+14            else:
+15                duplicate_finder.add(num)
+16        
+17        # total: O(n)
+18        return False
+19        
